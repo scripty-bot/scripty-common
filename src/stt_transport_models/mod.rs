@@ -31,12 +31,11 @@ pub struct AudioData {
 pub enum ServerToClientMessage {
     InitializationComplete(InitializationComplete) = 0x00,
     InitializationFailed(InitializationFailed) = 0x01,
-    SttResult(SttResult) = 0x02,
-    SttVerboseResult(SttVerboseResult) = 0x03,
-    SttError(SttError) = 0x04,
-    ShuttingDown = 0x05,
-    StatusConnectionOpen(StatusConnectionOpen) = 0x06,
-    StatusConnectionData(StatusConnectionData) = 0x07,
+    SttResult(SttSuccess) = 0x02,
+    SttError(SttError) = 0x03,
+    ShuttingDown = 0x04,
+    StatusConnectionOpen(StatusConnectionOpen) = 0x05,
+    StatusConnectionData(StatusConnectionData) = 0x06,
     FatalIoError(FatalIoError) = 0xFD,
     FatalUnknownError(FatalUnknownError) = 0xFF,
 }
@@ -55,20 +54,20 @@ pub struct InitializationFailed {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct SttResult {
+pub struct SttSuccess {
     #[serde(with = "compact")]
     pub id: Uuid,
-    pub result: String,
+    pub result: SttResultInner,
 }
-
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct SttVerboseResult {
-    #[serde(with = "compact")]
-    pub id: Uuid,
-    /// Number of transcripts in the result. If 0, no other fields are set.
-    pub num_transcripts: u32,
-    pub main_transcript: Option<String>,
-    pub confidence: Option<f32>,
+pub enum SttResultInner {
+    Simple(String),
+    Verbose {
+        /// Number of transcripts in the result. If 0, no other fields are set.
+        num_transcripts: u32,
+        main_transcript: Option<String>,
+        confidence: Option<f32>,
+    },
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
