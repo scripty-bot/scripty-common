@@ -6,7 +6,7 @@ use uuid::{serde::compact, Uuid};
 pub enum ClientToServerMessage {
     InitializeStreaming(InitializeStreaming) = 0x00,
     AudioData(AudioData) = 0x01,
-    FinalizeStreaming = 0x02,
+    FinalizeStreaming(FinalizeStreaming) = 0x02,
     CloseConnection = 0x03,
     ConvertToStatus = 0x04,
 }
@@ -22,6 +22,12 @@ pub struct InitializeStreaming {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AudioData {
     pub data: Vec<i16>,
+    #[serde(with = "compact")]
+    pub id: Uuid,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct FinalizeStreaming {
     #[serde(with = "compact")]
     pub id: Uuid,
 }
