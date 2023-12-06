@@ -57,17 +57,7 @@ pub struct InitializationFailed {
 pub struct SttSuccess {
     #[serde(with = "compact")]
     pub id: Uuid,
-    pub result: SttResultInner,
-}
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub enum SttResultInner {
-    Simple(String),
-    Verbose {
-        /// Number of transcripts in the result. If 0, no other fields are set.
-        num_transcripts: u32,
-        main_transcript: Option<String>,
-        confidence: Option<f32>,
-    },
+    pub result: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
