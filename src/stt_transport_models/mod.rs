@@ -8,7 +8,6 @@ pub enum ClientToServerMessage {
     AudioData(AudioData) = 0x01,
     FinalizeStreaming(FinalizeStreaming) = 0x02,
     CloseConnection = 0x03,
-    ConvertToStatus = 0x04,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
