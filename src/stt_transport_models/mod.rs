@@ -74,8 +74,8 @@ pub struct SttError {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct StatusConnectionOpen {
-    max_utilization: f64,
-    can_overload: bool,
+    pub max_utilization: f64,
+    pub can_overload: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
