@@ -12,8 +12,6 @@ pub enum ClientToServerMessage {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct InitializeStreaming {
-    pub verbose: bool,
-    pub language: String,
     #[serde(with = "compact")]
     pub id: Uuid,
 }
@@ -27,6 +25,8 @@ pub struct AudioData {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FinalizeStreaming {
+    pub verbose: bool,
+    pub language: String,
     #[serde(with = "compact")]
     pub id: Uuid,
 }
