@@ -27,6 +27,7 @@ pub struct AudioData {
 pub struct FinalizeStreaming {
     pub verbose: bool,
     pub language: String,
+    pub translate: bool,
     #[serde(with = "compact")]
     pub id: Uuid,
 }
